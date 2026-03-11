@@ -17,7 +17,7 @@ def SLD(model, test_samples, method='num', t_value=3):
     with torch.no_grad():
         for batch_ts, batched_graphs, batched_feats, batched_targets in dataloader:
             z, h = model(batched_graphs, batched_feats)
-            loss = mse(h, batched_targets)
+            loss = mse(h, batched_targets) # 128,46,130
             if method == 'prob':
                 max = torch.max(torch.sum(loss, dim=-1), dim=-1).values.unsqueeze(dim=-1)
                 min = torch.min(torch.sum(loss, dim=-1), dim=-1).values.unsqueeze(dim=-1)
@@ -66,6 +66,7 @@ def ILD(model, test_samples):
             instance_level_deviation_df = pd.concat([instance_level_deviation_df, tmp_df])
     return instance_level_deviation_df.reset_index(drop=True)
 
+
 def aggregate_instance_representations(cases, instance_level_deviation_df, before=60, after=300):
     instance_representations = []
     for _, case in cases.iterrows():
@@ -75,6 +76,8 @@ def aggregate_instance_representations(cases, instance_level_deviation_df, befor
             if col_name == 'timestamp':
                 continue
             instance_representation.extend([(col_name, eval(item)) for item in col_data])
+        # instance_representations.append(torch.stack(instance_representation))
+    # return torch.stack(instance_representations)
         instance_representations.append(instance_representation)
     return instance_representations
 
@@ -82,7 +85,7 @@ def aggregate_failure_representations(cases, system_level_deviation_df, type_has
     failure_representations, type_labels = [], []
     for _, case in cases.iterrows():
         agg_df = system_level_deviation_df[(system_level_deviation_df['timestamp']>=(case['timestamp']-before)) & (system_level_deviation_df['timestamp']<(case['timestamp']+after))]
-        failure_representations.append(list(agg_df.mean()[:-1]))
+        failure_representations.append(list(agg_df.mean()[:-1])) # mean
         if type_hash:
             type_labels.append(type_hash[case['failure_type']])
         else:
