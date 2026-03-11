@@ -29,3 +29,5 @@ def RCL(model, test_samples, cases, node_dict, split_ratio=0.3, method='num', t_
             rank_df.loc[case_id, f'Top{i+1}'] = f'{ranks[i]}'
     topK, avgK = eval_RCL(rank_df, k=5, verbose=verbose)
     return rank_df, topK, avgK
+
+
