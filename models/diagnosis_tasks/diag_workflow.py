@@ -62,3 +62,5 @@ def diag_workflow(config, model, train_samples, test_samples,
         eval_res['RCL'] = {'topK': topK, 'avgK': avgK}
         print('RCL done. |', eval_res['RCL'])
     return tmp_res, eval_res
+
+
