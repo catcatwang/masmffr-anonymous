@@ -63,3 +63,4 @@ def AD(model, train_samples, test_samples, ad_cases_label, split_ratio=0.6, meth
         return pre_interval, precision, recall, f1
     else:
         print('threshold is invalid.')
+
