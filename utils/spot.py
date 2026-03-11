@@ -511,7 +511,7 @@ class SPOT:
 
 
 
-#biSPOT异常检测算法‌是一种基于统计学的异常检测方法，主要用于处理时间序列数据。该算法通过构建概率分布模型来识别异常数据点。
+
 class biSPOT:
     """
     This class allows to run biSPOT algorithm on univariate dataset (upper and lower bounds)
@@ -2083,6 +2083,7 @@ class bidSPOT:
 
         
         return fig
+
 
 
 
