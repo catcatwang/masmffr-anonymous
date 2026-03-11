@@ -5,6 +5,7 @@ from tqdm import tqdm
 from layers import AutoRegressor, create_dataloader_AR
 
 def train(samples, config):
+    # hyperparameters
     batch_size = config['batch_size']
     epochs = config['epochs']
 
@@ -26,6 +27,7 @@ def train(samples, config):
     prev_loss = np.inf
     stop_count = 0
     
+    # model init
     model = AutoRegressor(tf_in_dim, num_heads, gnn_in_dim, gnn_hidden_dim, gnn_out_dim, gru_hidden_dim, dropout, tf_layers, gnn_layers, gru_layers)
     best_state_dict= model.state_dict()
     Loss = nn.MSELoss()
